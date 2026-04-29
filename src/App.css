@@ -1,0 +1,397 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #160904;
+  overflow-x: hidden;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  color: white;
+}
+
+.screen {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(#8b3f1f, #241006);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+
+.screen.main-screen {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(40, 15, 5, 0.65)),
+    url("/images/main-bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.screen.mode-screen {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(40, 15, 5, 0.65)),
+    url("/images/main-bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.screen.level-screen {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(40, 15, 5, 0.65)),
+    url("/images/level-bg.png");
+  background-size: cover;
+  background-position: center;
+  padding: 32px 16px;
+  justify-content: flex-start;
+}
+
+.title {
+  font-size: 68px;
+  letter-spacing: 4px;
+  text-shadow: 5px 5px 0 #3b1b0d;
+}
+
+.title-logo {
+  width: min(620px, 85vw);
+  height: auto;
+  filter: drop-shadow(6px 6px 0 #3b1b0d);
+}
+
+.story-bubble-image {
+  width: min(820px, 90vw);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 7px 0 #3b1b0d);
+}
+
+.main-button,
+.mode-button,
+.level-button {
+  font-size: 22px;
+  padding: 15px 30px;
+  border: 4px solid #2b1608;
+  background: linear-gradient(#f1b85a, #d79736);
+  color: #2b1608;
+  font-weight: 900;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 5px 0 #3b1b0d;
+}
+
+.main-button:hover,
+.mode-button:hover,
+.level-button:hover {
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 140px);
+  gap: 16px;
+}
+
+.level-button {
+  font-size: 18px;
+}
+
+.locked {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.duel-screen {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(#321305, #140803);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 32px;
+  gap: 18px;
+}
+
+.round-info {
+  background: #55240c;
+  border: 4px solid #f0b95a;
+  border-radius: 18px;
+  padding: 10px 34px;
+  text-align: center;
+  font-weight: 900;
+  box-shadow: 0 5px 0 #1d0d04;
+}
+
+.round-info p {
+  margin: 4px 0;
+}
+
+.duel-area {
+  position: relative;
+  width: min(1080px, 92vw);
+  height: 560px;
+  border: 5px solid #3b1b0d;
+  border-radius: 26px;
+  background:
+    linear-gradient(rgba(219, 142, 62, 0.2), rgba(138, 60, 24, 0.35)),
+    url("/images/desert-bg.png");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 0 #1d0d04;
+  overflow: hidden;
+}
+
+.ground-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 120px;
+  height: 6px;
+  background: rgba(59, 27, 13, 0.25);
+}
+
+.character {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  z-index: 3;
+  filter: drop-shadow(0 8px 0 rgba(0, 0, 0, 0.25));
+}
+
+.player-character {
+  left: 95px;
+  bottom: 85px;
+  transform: scaleX(-1);
+}
+
+.enemy-character {
+  right: 95px;
+  top: 100px;
+}
+
+.status-card {
+  width: 216px;
+  background: #f5deb3;
+  color: #2b1608;
+  border: 5px solid #3b1b0d;
+  border-radius: 16px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 6px 0 #3b1b0d;
+  z-index: 5;
+}
+
+.status-card p {
+  margin: 5px 0;
+  font-weight: 900;
+}
+
+.status-name {
+  border-bottom: 2px solid rgba(59, 27, 13, 0.25);
+  padding-bottom: 6px;
+}
+
+.enemy-status {
+  position: absolute;
+  right: 50px;
+  top: 320px;   /* ↓ 70px 더 내려감 */
+}
+
+.player-status {
+  position: absolute;
+  left: 50px;
+  bottom: 310px;   /* ↑ 100px 더 올라감 */
+}
+
+.hp-bar {
+  width: 100%;
+  height: 24px;
+  background: #31180a;
+  border: 3px solid #f0b95a;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.hp-fill {
+  height: 100%;
+  transition: width 0.4s ease, background 0.3s ease;
+}
+
+.hp-fill.high {
+  background: limegreen;
+}
+
+.hp-fill.mid {
+  background: orange;
+}
+
+.hp-fill.low {
+  background: crimson;
+}
+
+.rhythm-box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  min-height: 220px;
+  background: #f5deb3;
+  color: #2b1608;
+  border: 5px solid #3b1b0d;
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 8px 0 #3b1b0d;
+  z-index: 2;
+}
+
+.rhythm-label {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0 0 12px;
+}
+
+.rhythm-staff {
+  width: 100%;
+  min-height: 76px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 12px 0 18px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+}
+
+.rhythm-note {
+  width: 34px;
+  text-align: center;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.bar-line {
+  width: 12px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.message {
+  font-size: 24px;
+  font-weight: 900;
+  color: crimson;
+  margin: 10px 0;
+}
+
+.count-number {
+  font-size: 68px;
+  font-weight: 900;
+  color: #8b0000;
+  margin: 8px 0;
+}
+
+.bottom-panel {
+  width: min(1080px, 92vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.judgment-panel {
+  width: 320px;
+  min-height: 130px;
+  background: #55240c;
+  border: 4px solid #d79736;
+  border-radius: 16px;
+  box-shadow: 0 6px 0 #1d0d04;
+  padding: 12px 18px;
+  text-align: center;
+}
+
+.judgment-panel h3 {
+  margin: 0 0 8px;
+}
+
+.judgment-panel h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #f1b85a;
+}
+
+.judgment-panel p {
+  margin: 3px 0;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .duel-area {
+    height: 650px;
+  }
+
+  .rhythm-box {
+    width: 430px;
+  }
+
+  .enemy-character {
+    right: 50px;
+    top: 95px;
+  }
+
+.enemy-status {
+  position: absolute;
+  right: 50px;
+  top: 280px;
+}
+
+  .player-character {
+    left: 55px;
+    bottom: 80px;
+  }
+
+.player-status {
+  position: absolute;
+  left: 50px;
+  bottom: 260px;
+}
+
+  .bottom-panel {
+    flex-direction: column;
+  }
+}
+.round-dialogue {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  width: min(720px, 80%);
+  background: #f5deb3;
+  color: #2b1608;
+  border: 4px solid #3b1b0d;
+  border-radius: 18px;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 900;
+  line-height: 1.45;
+  box-shadow: 0 6px 0 #3b1b0d;
+  z-index: 6;
+}
