@@ -500,6 +500,30 @@ function App() {
     setRhythmPattern(generateRhythmByLevel(selectedLevel));
   }
 
+  function handleRhythmInput() {
+  if (screen !== "duel") return;
+  if (gameState !== "playing") return;
+  if (startTime === null) return;
+
+  const elapsedTime = Date.now() - startTime;
+  const newInputs = [...inputTimes, elapsedTime];
+
+  setInputTimes(newInputs);
+
+  if (window.currentRhythmInputs) {
+    window.currentRhythmInputs.push(elapsedTime);
+  }
+
+  const hitJudge = judgeSingleInput(
+    elapsedTime,
+    mode,
+    rhythmPattern.beats,
+    currentBpm
+  );
+
+  setMessage(hitJudge);
+}
+
   function startLevel(selectedLevel) {
     setLevel(selectedLevel);
     resetBattle(selectedLevel);
@@ -520,23 +544,7 @@ function App() {
 
       event.preventDefault();
 
-      const elapsedTime = Date.now() - startTime;
-      const newInputs = [...inputTimes, elapsedTime];
-
-      setInputTimes(newInputs);
-
-      if (window.currentRhythmInputs) {
-        window.currentRhythmInputs.push(elapsedTime);
-      }
-
-      const hitJudge = judgeSingleInput(
-        elapsedTime,
-        mode,
-        rhythmPattern.beats,
-        currentBpm
-      );
-
-      setMessage(hitJudge);
+      handleRhythmInput();
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -752,12 +760,20 @@ function App() {
 
           <div className="bottom-panel">
             <button
-              className="main-button"
-              onClick={startRhythmTest}
-              disabled={gameState !== "ready"}
-            >
-              리듬 시작
-            </button>
+  className="main-button"
+  onClick={startRhythmTest}
+  disabled={gameState !== "ready"}
+>
+  리듬 시작
+</button>
+
+<button
+  className="tap-button"
+  onClick={handleRhythmInput}
+  disabled={gameState !== "playing"}
+>
+  TAP
+</button>
 
             <div className="judgment-panel">
               <h3>판정</h3>
